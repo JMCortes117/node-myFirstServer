@@ -16,11 +16,15 @@ app.use(bodyParser.json())
 app.use(require('./routes/usuario'));
 
 
-mongoose.connect('mongodb://localhost:27017/micursonode', (err, res) => {
-    if (err) throw err;
-
-    console.log('base de datos online')
-});
+mongoose.connect(process.env.URLDB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    },
+    (err, res) => {
+        if (err) throw err;
+        console.log('base de datos online')
+    });
 
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto: ', process.env.PORT);
